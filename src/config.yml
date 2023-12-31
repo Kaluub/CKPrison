@@ -1,0 +1,75 @@
+# Define the mines list here.
+mines: # Example mines below.
+#  mine_a:
+#    rank: rank_a # The rank with relevance to this mine.
+#    world: world # The name of the world to use (usually just 'world'.)
+#    start: [20, -20, 20] # The coordinates of the first corner.
+#    end: [0, 0, 0] # The coordinates of the second corner.
+#    blocks: # List of block names to put in the mine.
+#      - stone
+#      - coal_ore
+#      - diamond_ore
+#    weights: # Weight of each block appearing (follows the order of blocks list.)
+#      - 0.6
+#      - 0.3
+#      - 0.1
+#  mine_b:
+#    rank: rank_b
+#    world: world
+#    start: [60, 60, 60]
+#    end: [80, 0, 80]
+#    blocks:
+#      - diamond_block
+#      - emerald_block
+#      - deepslate_emerald_ore
+#    weights: # Weights do not need to add up to 1 or 100, you can use anything you prefer.
+#      - 0.8
+#      - 0.2
+#      - 0.5
+
+# Define the ranks here.
+ranks: # Example ranks below.
+#  rank_a:
+#    rankup_price: 10 # Price to rank-up to the next rank.
+#    next_rank: rank_b # The next rank. Defaults to the rank below, or prevents rank up if not present.
+#    tag: '&7[&bA&7]&r' # Chat prefix (in your chat handler, set {prison_rank}.) Not required if you don't want it.
+#  rank_b:
+#    tag: '&7[&bB&7]&r'
+#    # Inherits (in the context of which mines it can use) permissions from this rank.
+#    # Set to any non-existing rank to inherit no permissions.
+#    # By default, inherits from the rank above (in this example, rank_a).
+#    # Inheritance is chained, meaning if a rank_c inherits rank_b, it would then inherit rank_a as well.
+#    inherits: rank_a
+#    # A list of commands you'd like to be run upon ranking up to this level.
+#    # To use the players name, you can use '%p' -- useful for giving them some item, for example.
+#    # If you aren't using the name as part of the command, for example in a server broadcast, you can instead
+#    # use their display name with '%d'.
+#    on_rankup:
+#      - 'give %p minecraft:golden_apple'
+#      - 'broadcast Wow! Player %d earned rank B!'
+
+# The default rank name. If not set, ranks will default to "none".
+# Everybody will receive this when they first join.
+default_rank: rank_a
+
+# Mine reset interval (in seconds). Every mine will reset around the same time. Default: 10 minutes.
+reset_interval: 600
+
+# Defines the maximum size of each side length.
+# For example, a mine which is 51x51x51 and a mine that is 1x1x100 would not be allowed if kept at 50.
+# Increasing this could lead to making mistakes if you
+# miss a negative sign or a digit in your start or end position!
+# Not only, but making mines which are very large is bad for both the server and client performance.
+# It's recommended to use at most a 50x50x50 mine size to avoid these issues, if not much smaller.
+maximum_mine_size: 50
+
+# Provide native block breaking/placing protection.
+# This prevents blocks from being placed or broken outside of mines, and
+# automatically allows players to break blocks inside of mines they unlocked.
+# This is not a full protection! Use WorldGuard or anything of the like for extended protections.
+# Players with OP or with the permission ckprison.admin are immune.
+automatic_protection: true
+
+# If automatic_protection is true, use the users rank to determine if they can break blocks in the mine.
+# The mine must have a rank name supplied in order for this protection to apply!
+rank_based_protection: false

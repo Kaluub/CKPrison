@@ -1,0 +1,39 @@
+name: CKPrison
+description: Prison game mode plugin.
+version: 1.0
+website: https://ckgames.ca
+authors:
+  - Kaluub
+  - PotatoNuke
+main: ca.ckgames.ckprison.Main
+api-version: 1.20
+commands:
+  test:
+    description: Testing command.
+    usage: /test
+  testtwo:
+    description: 'Test: rendering mine previews.'
+    usage: /testtwo [mine]
+  resetmines:
+    description: Resets all mines.
+    usage: /resetmines
+    permission: ckprison.admin
+  reloadranks:
+    description: Reloads the configuration of every rank.
+    usage: /reloadranks
+    permission: ckprison.admin
+  reloadmines:
+    description: Reloads the configuration of every mine.
+    usage: /reloadmines
+    permission: ckprison.admin
+  setrank:
+    description: Set a users rank directly.
+    usage: /setrank [player_name] [rank_name]
+    permission: ckprison.admin
+  rankup:
+    description: Rankup to the next rank, if possible.
+    usage: /rankup
+permissions:
+  ckprison.admin:
+    description: Grants all CKPrison permissions.
+    default: op

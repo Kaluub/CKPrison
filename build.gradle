@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+group 'ca.ckgames'
+version '1.0'
+
+repositories {
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url = 'https://jitpack.io' }
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT' // Spigot.
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7' // Used for economy transactions only. Requires JitPack.
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ca.ckgames.ckprison.Main'
+    }
+
+    from('src') {
+        include 'plugin.yml'
+        include 'config.yml'
+    }
+}
+
+if (file('local.gradle').exists()) {
+    apply from: project.rootProject.file('local.gradle')
+}

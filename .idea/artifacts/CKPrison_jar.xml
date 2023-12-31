@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CKPrison:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CKPrison</output-path>
+    <root id="archive" name="CKPrison.jar">
+      <element id="module-output" name="CKPrison" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/include/spigot-api-1.20.1-R0.1-20230810.090724-51-shaded.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
+    </root>
+  </artifact>
+</component>
