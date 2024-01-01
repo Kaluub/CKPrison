@@ -102,6 +102,7 @@ public class MineHandler {
 
             List<Material> blocks = new ArrayList<>();
 
+            boolean error = false;
             for (String materialName : materialNames) {
                 Material block = Material.matchMaterial(materialName);
                 if (block == null || !block.isBlock()) {
@@ -110,10 +111,12 @@ public class MineHandler {
                             mineName,
                             materialName
                     )));
-                    continue;
+                    error = true;
+                    break;
                 }
                 blocks.add(block);
             }
+            if (error) continue;
 
             String requiredRankName = mineConfig.getString("rank", null);
             Rank requiredRank = rankHandler.getRank(requiredRankName);

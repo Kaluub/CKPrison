@@ -60,19 +60,51 @@ public class RankHandler {
         for (Rank rank : rankList) {
             // Attempt to set rank pointers.
             // Interesting comment man, this isn't C anymore
+
             Optional<Rank> inheritsFrom = rankList.stream()
                     .filter(r -> Objects.equals(r.name, rank.inheritsFromName))
                     .findFirst();
-            inheritsFrom.ifPresent(r -> rank.inheritsFrom = r);
+
+            inheritsFrom.ifPresentOrElse(
+                    r -> rank.inheritsFrom = r,
+                    () -> rank.inheritsFrom = handleSpecialRankNameCases(rank, rank.inheritsFromName)
+            );
 
             Optional<Rank> nextRank = rankList.stream()
                     .filter(r -> Objects.equals(r.name, rank.nextRankName))
                     .findFirst();
-            nextRank.ifPresent(r -> rank.nextRank = r);
+
+            nextRank.ifPresentOrElse(
+                    r -> rank.nextRank = r,
+                    () -> rank.nextRank = handleSpecialRankNameCases(rank, rank.nextRankName)
+            );
         }
 
         plugin.getLogger().info(String.format("Loaded %d rank(s): %d warnings found.", rankList.size(), results.size()));
         return results;
+    }
+
+    private Rank handleSpecialRankNameCases(Rank rank, String name) {
+        // In the case where there is a rank with one of these special keywords,
+        // the rank itself will take priority.
+
+        if ("previous".equals(name)) {
+            // Use the previous rank if possible.
+            int index = rankList.indexOf(rank) - 1;
+            if (index >= 0) {
+                return rankList.get(index);
+            }
+        }
+
+        if ("next".equals(name)) {
+            // Use the next rank if possible.
+            int index = rankList.indexOf(rank) + 1;
+            if (index < rankList.size()) {
+                return rankList.get(index);
+            }
+        }
+
+        return null;
     }
 
     public Rank getRank(String name) {
