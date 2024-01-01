@@ -77,6 +77,7 @@ public class Rankup implements CommandExecutor {
         }
 
         databaseHandler.setPlayerRank(player, rank.nextRank);
+        rank.onRankAchieved(player);
         sender.sendMessage(String.format(ChatColor.GOLD + "Congratulations! You've ranked up! New tag: %s", ChatColor.translateAlternateColorCodes('&', rank.nextRank.tag)));
         return true;
     }

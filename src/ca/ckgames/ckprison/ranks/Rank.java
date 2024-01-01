@@ -31,6 +31,7 @@ public class Rank {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                     .replaceAll("%p", player.getName())
                     .replaceAll("%d", player.getDisplayName())
+                    .replaceAll("%r", name)
             );
         }
     }

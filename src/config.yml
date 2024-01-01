@@ -31,20 +31,21 @@ mines: # Example mines below.
 ranks: # Example ranks below.
 #  rank_a:
 #    rankup_price: 10 # Price to rank-up to the next rank.
-#    next_rank: rank_b # The next rank. Defaults to the rank below, or prevents rank up if not present.
+#    next_rank: rank_b # The next rank's name, or just use 'next'. Prevents rank up if not present.
 #    tag: '&7[&bA&7]&r' # Chat prefix (in your chat handler, set {prison_rank}.) Not required if you don't want it.
 #  rank_b:
 #    tag: '&7[&bB&7]&r'
 #    # Inherits (in the context of which mines it can use) permissions from this rank.
-#    # Set to any non-existing rank to inherit no permissions.
-#    # By default, inherits from the rank above (in this example, rank_a).
+#    # If not set, the rank inherits no ranks.
+#    # You can use 'previous' and 'next' to use the previous and next rank
 #    # Inheritance is chained, meaning if a rank_c inherits rank_b, it would then inherit rank_a as well.
-#    inherits: rank_a
+#    inherits: previous
 #    # A list of commands you'd like to be run upon ranking up to this level.
 #    # To use the players name, you can use '%p' -- useful for giving them some item, for example.
 #    # If you aren't using the name as part of the command, for example in a server broadcast, you can instead
 #    # use their display name with '%d'.
-#    on_rankup:
+#    # You can use '%r' for the ranks internal name.
+#    rankup_commands:
 #      - 'give %p minecraft:golden_apple'
 #      - 'broadcast Wow! Player %d earned rank B!'
 
