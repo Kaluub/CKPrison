@@ -31,8 +31,6 @@ public class EventListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         // Handle player join events.
         Player player = event.getPlayer();
-        player.setPlayerListHeader(ChatColor.GREEN + "CKGAMES");
-
         if (databaseHandler.getPlayerRank(player) == null) {
             databaseHandler.addNewPlayer(player);
         }

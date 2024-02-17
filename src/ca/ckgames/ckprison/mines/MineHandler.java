@@ -134,6 +134,7 @@ public class MineHandler {
 
     public void resetAllMines() {
         for (Mine mine : mineList) {
+            // TODO: delay or async mine reloading
             mine.resetMine();
         }
     }

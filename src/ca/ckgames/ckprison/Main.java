@@ -83,8 +83,6 @@ public class Main extends JavaPlugin {
         }
 
         // Setup commands...
-        Objects.requireNonNull(getCommand("test")).setExecutor(new Test(databaseHandler));
-        Objects.requireNonNull(getCommand("testtwo")).setExecutor(new TestTwo(this, mineHandler));
         Objects.requireNonNull(getCommand("resetmines")).setExecutor(new ResetMines(mineHandler));
         Objects.requireNonNull(getCommand("reloadranks")).setExecutor(new ReloadRanks(this, rankHandler));
         Objects.requireNonNull(getCommand("reloadmines")).setExecutor(new ReloadMines(this, config, mineHandler));

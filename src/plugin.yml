@@ -8,12 +8,6 @@ authors:
 main: ca.ckgames.ckprison.Main
 api-version: 1.20
 commands:
-  test:
-    description: Testing command.
-    usage: /test
-  testtwo:
-    description: 'Test: rendering mine previews.'
-    usage: /testtwo [mine]
   resetmines:
     description: Resets all mines.
     usage: /resetmines
