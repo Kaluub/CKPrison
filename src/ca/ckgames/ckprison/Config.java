@@ -8,6 +8,7 @@ public class Config {
     public int maximumMineSize;
     public boolean automaticProtection;
     public boolean rankBasedAccess;
+    public String pickaxeCommand;
 
     public void setupConfig(FileConfiguration configFile) {
         defaultRank = configFile.getString("default_rank", "none");
@@ -15,5 +16,6 @@ public class Config {
         maximumMineSize = configFile.getInt("maximum_mine_size", 50);
         automaticProtection = configFile.getBoolean("automatic_protection", false);
         rankBasedAccess = configFile.getBoolean("rank_based_protection", false);
+        pickaxeCommand = configFile.getString("pickaxe_command", null);
     }
 }
