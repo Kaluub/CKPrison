@@ -4,7 +4,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -29,7 +29,7 @@ sourceSets {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT' // Spigot.
+    compileOnly 'org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT' // Spigot.
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7' // Used for economy transactions only. Requires JitPack.
 }
 
