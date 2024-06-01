@@ -6,20 +6,21 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.BoundingBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mine {
     public String name;
-    private final World world;
     public final BoundingBox bounds;
     public final List<Material> materials;
     public final List<Double> weights;
     public Rank requiredRank;
     private double totalWeight = 0;
+    public List<Block> blocks;
+
 
     public Mine(String name, World world, BoundingBox bounds, List<Material> materials, List<Double> weights, Rank requiredRank) {
         this.name = name;
-        this.world = world;
         this.bounds = bounds;
         this.materials = materials;
         this.weights = weights;
@@ -28,16 +29,21 @@ public class Mine {
         for (double weight : weights) {
             totalWeight += weight;
         }
-    }
 
-    public void resetMine() {
+        blocks = new ArrayList<>();
         for (double x = bounds.getMinX(); x <= bounds.getMaxX(); x += 1) {
             for (double y = bounds.getMinY(); y <= bounds.getMaxY(); y += 1) {
                 for (double z = bounds.getMinZ(); z <= bounds.getMaxZ(); z += 1) {
                     Block block = world.getBlockAt((int) x, (int) y, (int) z);
-                    block.setType(getRandomMaterial());
+                    blocks.add(block);
                 }
             }
+        }
+    }
+
+    public void resetMine() {
+        for (Block block : blocks) {
+            block.setType(getRandomMaterial());
         }
     }
 

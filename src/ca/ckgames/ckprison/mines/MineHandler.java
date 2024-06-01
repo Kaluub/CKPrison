@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
@@ -18,12 +19,14 @@ import java.util.List;
 public class MineHandler {
     public final List<Mine> mineList = new ArrayList<>();
     private final RankHandler rankHandler;
+    private final Plugin plugin;
 
-    public MineHandler(RankHandler rankHandler) {
+    public MineHandler(RankHandler rankHandler, Plugin plugin) {
         this.rankHandler = rankHandler;
+        this.plugin = plugin;
     }
 
-    public List<MineLoadingResult> loadMines(Plugin plugin, Config config, FileConfiguration configFile) {
+    public List<MineLoadingResult> loadMines(Config config, FileConfiguration configFile) {
         clearMines();
 
         List<MineLoadingResult> results = new ArrayList<>();
@@ -83,7 +86,7 @@ public class MineHandler {
                     || bounds.getWidthZ() > config.maximumMineSize
             ) {
                 results.add(new MineLoadingResult(false, String.format(
-                        "Mine %s is too fat.",
+                        "Mine %s is larger than your maximum mine size in the config.",
                         mineName
                 )));
                 continue;
@@ -112,7 +115,6 @@ public class MineHandler {
                             materialName
                     )));
                     error = true;
-                    break;
                 }
                 blocks.add(block);
             }
@@ -134,9 +136,50 @@ public class MineHandler {
 
     public void resetAllMines() {
         for (Mine mine : mineList) {
-            // TODO: delay or async mine reloading
             mine.resetMine();
         }
+    }
+
+    public void resetAllMines(int limit) {
+        BukkitRunnable task = new BukkitRunnable() {
+            int currentMineIndex = 0;
+            int currentMineBlocksPlaced = 0;
+
+            @Override
+            public void run() {
+                if (currentMineIndex >= mineList.size()) {
+                    this.cancel();
+                    return;
+                }
+
+                Mine currentMine = mineList.get(currentMineIndex);
+                List<Block> currentBlocks = currentMine.blocks;
+
+                int blocksPlacedThisTick = 0;
+
+                while (blocksPlacedThisTick < limit) {
+                    if (currentMineBlocksPlaced >= currentBlocks.size()) {
+                        currentMineIndex += 1;
+                        currentMineBlocksPlaced = 0;
+
+                        if (currentMineIndex >= mineList.size()) {
+                            this.cancel();
+                            return;
+                        }
+
+                        currentMine = mineList.get(currentMineIndex);
+                        currentBlocks = currentMine.blocks;
+                    }
+
+                    Block block = currentBlocks.get(currentMineBlocksPlaced);
+                    block.setType(currentMine.getRandomMaterial());
+                    currentMineBlocksPlaced += 1;
+                    blocksPlacedThisTick += 1;
+                }
+            }
+        };
+
+        task.runTaskTimer(plugin, 1, 1);
     }
 
     public void clearMines() {

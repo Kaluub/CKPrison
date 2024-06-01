@@ -1,12 +1,14 @@
 package ca.ckgames.ckprison.commands;
 
 import ca.ckgames.ckprison.Config;
+import ca.ckgames.ckprison.Utils;
 import ca.ckgames.ckprison.mines.MineHandler;
 import ca.ckgames.ckprison.mines.MineLoadingResult;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -26,7 +28,9 @@ public class ReloadMines implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         plugin.reloadConfig();
-        List<MineLoadingResult> loadingResults = mineHandler.loadMines(plugin, config, plugin.getConfig());
+        FileConfiguration fileConfig = plugin.getConfig();
+        config.setupConfig(fileConfig);
+        List<MineLoadingResult> loadingResults = mineHandler.loadMines(config, fileConfig);
         List<String> mineLoadingErrors = new ArrayList<>();
 
         for (MineLoadingResult loadingResult : loadingResults) {
@@ -37,7 +41,8 @@ public class ReloadMines implements CommandExecutor {
 
         if (!mineLoadingErrors.isEmpty()) {
             mineHandler.clearMines();
-            sender.sendMessage(ChatColor.RED + "Mines could not be loaded! See error(s) below:");
+            String message = Utils.format("&cMines could not be loaded! See %s below:", mineLoadingErrors.size() > 1 ? "errors" : "error");
+            sender.sendMessage(message);
             for (String error : mineLoadingErrors) {
                 sender.sendMessage(ChatColor.RED + error);
             }

@@ -5,7 +5,7 @@ website: https://ckgames.ca
 authors:
   - Kaluub
   - PotatoNuke
-main: ca.ckgames.ckprison.Main
+main: ca.ckgames.ckprison.CKPrisonPlugin
 api-version: 1.20
 commands:
   resetmines:

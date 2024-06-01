@@ -1,20 +1,27 @@
 package ca.ckgames.ckprison.ranks;
 
+import ca.ckgames.ckprison.CKPrisonPlugin;
+import ca.ckgames.ckprison.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class RankHandler {
-    public JavaPlugin plugin;
+public class RankHandler implements Listener {
+    public CKPrisonPlugin plugin;
     public List<Rank> rankList = new ArrayList<>();
 
-    public RankHandler(JavaPlugin plugin) {
+    public RankHandler(CKPrisonPlugin plugin) {
         this.plugin = plugin;
+
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     public List<RankLoadingResult> loadRanks(FileConfiguration configFile) {
@@ -118,5 +125,18 @@ public class RankHandler {
 
     public void clearRanks() {
         rankList.clear();
+    }
+
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        String rankName = plugin.databaseHandler.getPlayerRank(event.getPlayer());
+        if (rankName == null) {
+            return;
+        }
+        Rank rank = getRank(rankName);
+        if (rank == null) {
+            return;
+        }
+        event.setFormat(event.getFormat().replace("{prison_rank}", Utils.format(rank.tag)));
     }
 }

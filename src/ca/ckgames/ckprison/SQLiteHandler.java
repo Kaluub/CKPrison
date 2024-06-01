@@ -2,7 +2,6 @@ package ca.ckgames.ckprison;
 
 import ca.ckgames.ckprison.ranks.Rank;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.sql.*;
@@ -10,8 +9,10 @@ import java.util.logging.Logger;
 
 public class SQLiteHandler {
     private Connection connection;
+    private final CKPrisonPlugin plugin;
 
-    public SQLiteHandler(Plugin plugin) {
+    public SQLiteHandler(CKPrisonPlugin plugin) {
+        this.plugin = plugin;
         try {
             File file = new File(plugin.getDataFolder(), "storage.db");
             if (!file.exists()) {
@@ -24,7 +25,7 @@ public class SQLiteHandler {
         }
     }
 
-    public void setupTables(Plugin plugin, String defaultRank) {
+    public void setupTables(String defaultRank) {
         try {
             PreparedStatement statement = connection.prepareStatement(String.format("""
                     CREATE TABLE IF NOT EXISTS player_data (

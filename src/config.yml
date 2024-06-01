@@ -74,3 +74,7 @@ automatic_protection: true
 # If automatic_protection is true, use the users rank to determine if they can break blocks in the mine.
 # The mine must have a rank name supplied in order for this protection to apply!
 rank_based_protection: false
+
+# This allows you to set the maximum amount of blocks placed per tick when resetting the mines.
+# Set to -1 to try placing all blocks on the same tick. This will cause lag spikes when resetting the mines!
+blocks_placed_per_tick: 1000

@@ -57,8 +57,8 @@ public class Rankup implements CommandExecutor {
 
         if (balance < rank.rankupPrice) {
             // Not enough funds to rank up.
-            sender.sendMessage(String.format(
-                    ChatColor.RED + "You do not have enough currency to rank up! Progress: %d/%d (%.2f%%).",
+            sender.sendMessage(Utils.format(
+                    "&cYou do not have enough currency to rank up! Progress: %d/%d (%.2f%%).",
                     (int) balance,
                     rank.rankupPrice,
                     rank.rankupPrice > 0 ? balance / rank.rankupPrice * 100 : 0
@@ -72,13 +72,13 @@ public class Rankup implements CommandExecutor {
             if (Utils.isAdmin(player)) {
                 sender.sendMessage(ChatColor.GRAY + "ADMIN: Check the server log for more details!");
             }
-            Bukkit.getLogger().warning(String.format("Error while taking currency from \"%s\": %s", player.getName(), response.errorMessage));
+            Bukkit.getLogger().warning(String.format("Error while taking currency from \"%s\":\n%s", player.getName(), response.errorMessage));
             return true;
         }
 
         databaseHandler.setPlayerRank(player, rank.nextRank);
         rank.nextRank.onRankAchieved(player);
-        sender.sendMessage(String.format(ChatColor.GOLD + "Congratulations! You've ranked up! New tag: %s", ChatColor.translateAlternateColorCodes('&', rank.nextRank.tag)));
+        sender.sendMessage(Utils.format(ChatColor.GOLD + "Congratulations! You've ranked up! New tag: %s", rank.nextRank.tag));
         return true;
     }
 }

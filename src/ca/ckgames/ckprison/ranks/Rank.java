@@ -28,6 +28,7 @@ public class Rank {
         for (String command : onRankupCommands) {
             // Run each command with console level access.
             // Not ideal, but for most cases this just simplifies user experience.
+            // TODO: consider adding a way to choose who executes the command/with what permission.
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
                     .replaceAll("%p", player.getName())
                     .replaceAll("%d", player.getDisplayName())

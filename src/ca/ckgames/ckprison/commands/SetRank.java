@@ -1,6 +1,7 @@
 package ca.ckgames.ckprison.commands;
 
 import ca.ckgames.ckprison.SQLiteHandler;
+import ca.ckgames.ckprison.Utils;
 import ca.ckgames.ckprison.ranks.Rank;
 import ca.ckgames.ckprison.ranks.RankHandler;
 import org.bukkit.Bukkit;
@@ -31,19 +32,19 @@ public class SetRank implements CommandExecutor {
 
         Rank rank = rankHandler.getRank(rankName);
         if (rank == null) {
-            sender.sendMessage(String.format(ChatColor.RED + "Rank %s does not exist.", rankName));
+            sender.sendMessage(Utils.format(ChatColor.RED + "Rank %s does not exist.", rankName));
             return true;
         }
 
         Player player = Bukkit.getPlayer(playerName);
         if (player == null) {
-            sender.sendMessage(String.format(ChatColor.RED + "Could not find player with name %s.", playerName));
+            sender.sendMessage(Utils.format(ChatColor.RED + "Could not find player with name %s.", playerName));
             return true;
         }
 
         databaseHandler.setPlayerRank(player, rank);
         rank.onRankAchieved(player);
-        sender.sendMessage(String.format(ChatColor.GREEN + "Set %s's rank to %s.", playerName, rank.name));
+        sender.sendMessage(Utils.format( ChatColor.GREEN + "Set %s's rank to %s.", player.getName(), rank.name));
         return true;
     }
 }

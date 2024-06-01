@@ -5,14 +5,12 @@ import ca.ckgames.ckprison.mines.MineHandler;
 import ca.ckgames.ckprison.ranks.Rank;
 import ca.ckgames.ckprison.ranks.RankHandler;
 import com.google.common.collect.Lists;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -95,18 +93,5 @@ public class EventListener implements Listener {
             }
             player.performCommand(config.pickaxeCommand);
         }
-    }
-
-    @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
-        String rankName = databaseHandler.getPlayerRank(event.getPlayer());
-        if (rankName == null) {
-            return;
-        }
-        Rank rank = rankHandler.getRank(rankName);
-        if (rank == null) {
-            return;
-        }
-        event.setFormat(event.getFormat().replace("{prison_rank}", ChatColor.translateAlternateColorCodes('&', rank.tag)));
     }
 }

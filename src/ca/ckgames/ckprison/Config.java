@@ -9,6 +9,7 @@ public class Config {
     public boolean automaticProtection;
     public boolean rankBasedAccess;
     public String pickaxeCommand;
+    public int blocksPlacedPerTick;
 
     public void setupConfig(FileConfiguration configFile) {
         defaultRank = configFile.getString("default_rank", "none");
@@ -17,5 +18,6 @@ public class Config {
         automaticProtection = configFile.getBoolean("automatic_protection", false);
         rankBasedAccess = configFile.getBoolean("rank_based_protection", false);
         pickaxeCommand = configFile.getString("pickaxe_command", null);
+        blocksPlacedPerTick = configFile.getInt("blocks_placed_per_tick", 1000);
     }
 }
