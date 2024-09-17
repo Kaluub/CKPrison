@@ -47,7 +47,7 @@ public class ResetMines implements CommandExecutor {
         sender.sendMessage(Utils.format(ChatColor.GREEN + "Resetting all mines."));
         double totalBlocks = 0;
         for (Mine mine : mineHandler.mineList) {
-            totalBlocks += mine.blocks.size();
+            totalBlocks += mine.blocks.length;
         }
         double timeTakenInTicks = totalBlocks / limit;
         sender.sendMessage(Utils.format(ChatColor.GRAY + "At %d blocks per tick modifying %d blocks, reset will take %.2f ticks (%.2fs).", limit, (int) totalBlocks, timeTakenInTicks, timeTakenInTicks/20));

@@ -14,10 +14,11 @@ import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MineHandler {
-    public final List<Mine> mineList = new ArrayList<>();
+    public final List<Mine> mineList = new LinkedList<>();
     private final RankHandler rankHandler;
     private final Plugin plugin;
 
@@ -118,7 +119,9 @@ public class MineHandler {
                 }
                 blocks.add(block);
             }
-            if (error) continue;
+            if (error) {
+                continue;
+            }
 
             String requiredRankName = mineConfig.getString("rank", null);
             Rank requiredRank = rankHandler.getRank(requiredRankName);
@@ -153,12 +156,12 @@ public class MineHandler {
                 }
 
                 Mine currentMine = mineList.get(currentMineIndex);
-                List<Block> currentBlocks = currentMine.blocks;
+                Block[] currentBlocks = currentMine.blocks;
 
                 int blocksPlacedThisTick = 0;
 
                 while (blocksPlacedThisTick < limit) {
-                    if (currentMineBlocksPlaced >= currentBlocks.size()) {
+                    if (currentMineBlocksPlaced >= currentBlocks.length) {
                         currentMineIndex += 1;
                         currentMineBlocksPlaced = 0;
 
@@ -171,7 +174,7 @@ public class MineHandler {
                         currentBlocks = currentMine.blocks;
                     }
 
-                    Block block = currentBlocks.get(currentMineBlocksPlaced);
+                    Block block = currentBlocks[currentMineBlocksPlaced];
                     block.setType(currentMine.getRandomMaterial());
                     currentMineBlocksPlaced += 1;
                     blocksPlacedThisTick += 1;
@@ -188,7 +191,9 @@ public class MineHandler {
 
     public Mine getMineFromBlock(Block block) {
         for (Mine mine : mineList) {
-            if (mine.containsBlock(block)) return mine;
+            if (mine.containsBlock(block)) {
+                return mine;
+            }
         }
         return null;
     }

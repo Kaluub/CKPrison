@@ -29,9 +29,9 @@ sourceSets {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT' // Spigot.
-    compileOnly 'org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT:javadoc'
-    compileOnly 'org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT:sources'
+    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT' // Spigot.
+    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT:javadoc'
+    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT:sources'
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7' // Used for economy transactions only. Requires JitPack.
 }
 
