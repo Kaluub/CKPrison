@@ -33,7 +33,7 @@ public class CKPrisonPlugin extends JavaPlugin {
 
         // Setup SQLite...
         databaseHandler = new SQLiteHandler(this);
-        databaseHandler.setupTables(config.defaultRank);
+        databaseHandler.setupTables();
 
         // Setup ranks...
         rankHandler = new RankHandler(this);

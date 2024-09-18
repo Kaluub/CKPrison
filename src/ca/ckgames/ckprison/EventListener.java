@@ -36,7 +36,7 @@ public class EventListener implements Listener {
         // Handle player join events.
         Player player = event.getPlayer();
         if (databaseHandler.getPlayerRank(player) == null) {
-            databaseHandler.addNewPlayer(player);
+            databaseHandler.addNewPlayer(player, config.defaultRank);
         }
     }
 

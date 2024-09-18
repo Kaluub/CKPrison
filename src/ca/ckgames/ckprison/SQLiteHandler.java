@@ -25,15 +25,15 @@ public class SQLiteHandler {
         }
     }
 
-    public void setupTables(String defaultRank) {
+    public void setupTables() {
         try {
-            PreparedStatement statement = connection.prepareStatement(String.format("""
+            PreparedStatement statement = connection.prepareStatement("""
                     CREATE TABLE IF NOT EXISTS player_data (
                         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         uuid TEXT NOT NULL,
-                        prison_rank TEXT NOT NULL DEFAULT '%s'
-                    )""", defaultRank));
+                        prison_rank TEXT NOT NULL
+                    )""");
             statement.execute();
         } catch (SQLException e) {
             plugin.getLogger().severe("SQLite error:");
@@ -41,10 +41,13 @@ public class SQLiteHandler {
         }
     }
 
-    public void addNewPlayer(Player player) {
+    public void addNewPlayer(Player player, String defaultRank) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO player_data (uuid) VALUES (?)");
+            PreparedStatement statement = connection.prepareStatement("""
+                INSERT INTO player_data (uuid, prison_rank)
+                VALUES (?, ?)""");
             statement.setString(1, player.getUniqueId().toString());
+            statement.setString(2, defaultRank);
             statement.executeUpdate();
         } catch (SQLException e) {
             Logger logger = player.getServer().getLogger();

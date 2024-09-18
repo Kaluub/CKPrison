@@ -47,7 +47,7 @@ ranks: # Example ranks below.
 #    # You can use '%r' for the ranks internal name.
 #    rankup_commands:
 #      - 'give %p minecraft:golden_apple'
-#      - 'broadcast Wow! Player %d earned rank B!'
+#      - 'say Wow! Player %d earned rank B!'
 
 # The default rank name. If not set, ranks will default to "none".
 # Everybody will receive this when they first join.
@@ -58,10 +58,9 @@ reset_interval: 600
 
 # Defines the maximum size of each side length.
 # For example, a mine which is 51x51x51 and a mine that is 1x1x100 would not be allowed if kept at 50.
-# Increasing this could lead to making mistakes if you
-# miss a negative sign or a digit in your start or end position!
-# Not only, but making mines which are very large is bad for both the server and client performance.
-# It's recommended to use at most a 50x50x50 mine size to avoid these issues, if not much smaller.
+# Increasing this could lead to making hard to fix mistakes without thorough backups.
+# Larger mines also take longer to reset.
+# It's recommended to use at most a 50x50x50 mine size to avoid these issues, if not smaller.
 maximum_mine_size: 50
 
 # Provide native block breaking/placing protection.
