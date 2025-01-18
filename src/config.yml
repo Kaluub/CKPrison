@@ -1,3 +1,6 @@
+# This config file can become outdated! You may want to check the latest one if you have some issues.
+# It can be found here: https://github.com/Kaluub/CKPrison/blob/master/src/config.yml
+
 # Define the mines list here.
 mines: # Example mines below.
 #  mine_a:
@@ -77,3 +80,6 @@ rank_based_protection: false
 # This allows you to set the maximum amount of blocks placed per tick when resetting the mines.
 # Set to -1 to try placing all blocks on the same tick. This will cause lag spikes when resetting the mines!
 blocks_placed_per_tick: 1000
+
+# If set, you can choose a command for the player to run when they right click with their pickaxe.
+# pickaxe_command: sell all

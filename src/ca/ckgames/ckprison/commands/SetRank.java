@@ -23,7 +23,7 @@ public class SetRank implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: /setrank {player_name} {rank_name}");
+            sender.sendMessage(ChatColor.RED + "Usage: /setrank [player_name] [rank_name]");
             return true;
         }
 

@@ -4,7 +4,6 @@ import ca.ckgames.ckprison.mines.Mine;
 import ca.ckgames.ckprison.mines.MineHandler;
 import ca.ckgames.ckprison.ranks.Rank;
 import ca.ckgames.ckprison.ranks.RankHandler;
-import com.google.common.collect.Lists;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class EventListener implements Listener {
@@ -23,6 +22,12 @@ public class EventListener implements Listener {
     SQLiteHandler databaseHandler;
     MineHandler mineHandler;
     RankHandler rankHandler;
+
+    static List<Material> pickaxes = List.of(
+            Material.DIAMOND_PICKAXE, Material.GOLDEN_PICKAXE,
+            Material.IRON_PICKAXE, Material.NETHERITE_PICKAXE,
+            Material.STONE_PICKAXE, Material.WOODEN_PICKAXE
+    );
 
     public EventListener(Config config, SQLiteHandler databaseHandler, MineHandler mineHandler, RankHandler rankHandler) {
         this.config = config;
@@ -81,11 +86,6 @@ public class EventListener implements Listener {
             event.setCancelled(true);
             return;
         }
-
-        ArrayList<Material> pickaxes = Lists.newArrayList(
-                Material.DIAMOND_PICKAXE, Material.GOLDEN_PICKAXE,
-                Material.IRON_PICKAXE, Material.NETHERITE_PICKAXE,
-                Material.STONE_PICKAXE, Material.WOODEN_PICKAXE);
 
         if (event.getHand() == EquipmentSlot.HAND && event.hasItem() && pickaxes.contains(Objects.requireNonNull(event.getItem()).getType())) {
             if (config.pickaxeCommand == null || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)) {

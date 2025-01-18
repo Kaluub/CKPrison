@@ -35,7 +35,7 @@ public class Rankup implements CommandExecutor {
             // This command will not work if this is the case.
             sender.sendMessage(ChatColor.RED + "This command is not currently enabled.");
             if (Utils.isAdmin(player)) {
-                sender.sendMessage(ChatColor.GRAY + "ADMIN: Vault & an economy plugin (ie. EssentialsX) needs to be installed on the server in order to run this command!");
+                sender.sendMessage(ChatColor.GRAY + "ADMIN: Vault & an economy plugin (ie. EssentialsX) need to be installed on the server in order to run this command!");
             }
             return true;
         }

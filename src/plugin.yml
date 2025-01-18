@@ -31,3 +31,9 @@ permissions:
   ckprison.admin:
     description: Grants all CKPrison permissions.
     default: op
+  ckprison.rankup:
+    description: Allow a user to rankup.
+    default: true
+  ckprison.setrank:
+    description: Allow a user to set anybodies rank.
+    default: op

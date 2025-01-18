@@ -13,8 +13,6 @@ version '1.0'
 
 repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
     maven { url = 'https://jitpack.io' }
     mavenLocal()
     mavenCentral()
@@ -29,9 +27,7 @@ sourceSets {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT' // Spigot.
-    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT:javadoc'
-    compileOnly 'org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT:sources'
+    compileOnly 'org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT' // Spigot.
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7' // Used for economy transactions only. Requires JitPack.
 }
 

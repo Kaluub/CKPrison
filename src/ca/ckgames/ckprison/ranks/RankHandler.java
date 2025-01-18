@@ -65,9 +65,6 @@ public class RankHandler implements Listener {
         }
 
         for (Rank rank : rankList) {
-            // Attempt to set rank pointers.
-            // Interesting comment man, this isn't C anymore
-
             Optional<Rank> inheritsFrom = rankList.stream()
                     .filter(r -> Objects.equals(r.name, rank.inheritsFromName))
                     .findFirst();

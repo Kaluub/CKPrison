@@ -99,7 +99,7 @@ public class CKPrisonPlugin extends JavaPlugin {
             return false; // Can't use Vault API.
         }
         RegisteredServiceProvider<Economy> provider = getServer().getServicesManager().getRegistration(Economy.class);
-        if (provider  == null) {
+        if (provider == null) {
             return false;
         }
         economy = provider.getProvider();
